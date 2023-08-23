@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -22,7 +24,12 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Article/Create');
+        $categories = Category::all();
+        $tags = Tag::all();
+        return Inertia::render('Article/Create', [
+            'categories' => $categories,
+            'tags' => $tags
+        ]);
     }
 
     /**
@@ -32,12 +39,19 @@ class ArticleController extends Controller
     {
         $data = $request->validate([
             'title' => 'required|max:255',
-            'content' => 'required'
+            'content' => 'required',
+            'category_id' => 'required',
+            'tags' => 'nullable'
         ]);
-        Article::create([
+        $article = Article::create([
             'title' => $data['title'],
-            'content' => $data['content']
+            'content' => $data['content'],
+            'category_id' => $data['category_id']
         ]);
+
+        if ($data['tags']) {
+            $article->tags()->attach($data['tags']);
+        }
     }
 
     /**
