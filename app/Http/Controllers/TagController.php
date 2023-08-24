@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class TagController extends Controller
 {
@@ -12,7 +13,10 @@ class TagController extends Controller
      */
     public function index()
     {
-        //
+        $tags = Tag::all();
+        return Inertia::render('Tag/Index', [
+            'tags' => $tags
+        ]);
     }
 
     /**
@@ -20,7 +24,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Tag/Create');
     }
 
     /**
@@ -28,7 +32,13 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required'
+        ]);
+
+        Tag::create([
+            'name' => $data['name']
+        ]);
     }
 
     /**
@@ -36,7 +46,9 @@ class TagController extends Controller
      */
     public function show(Tag $tag)
     {
-        //
+        return Inertia::render('Tag/Show', [
+            'tag' => $tag
+        ]);
     }
 
     /**
@@ -44,7 +56,9 @@ class TagController extends Controller
      */
     public function edit(Tag $tag)
     {
-        //
+        return Inertia::render('Tag/Edit', [
+            'tag' => $tag
+        ]);
     }
 
     /**
@@ -52,7 +66,13 @@ class TagController extends Controller
      */
     public function update(Request $request, Tag $tag)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required'
+        ]);
+
+        $tag->update([
+            'name' => $data['name']
+        ]);
     }
 
     /**
@@ -60,6 +80,6 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        //
+        $tag->delete();
     }
 }
