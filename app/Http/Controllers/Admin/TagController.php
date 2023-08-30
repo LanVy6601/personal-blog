@@ -1,21 +1,22 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Category;
+use App\Http\Controllers\Controller;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class CategoryController extends Controller
+class TagController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $categories = Category::all();
-        return Inertia::render('Category/Index', [
-            'categories' => $categories
+        $tags = Tag::all();
+        return Inertia::render('Admin/Tag/Index', [
+            'tags' => $tags
         ]);
     }
 
@@ -24,7 +25,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Category/Create');
+        return Inertia::render('Admin/Tag/Create');
     }
 
     /**
@@ -35,7 +36,8 @@ class CategoryController extends Controller
         $data = $request->validate([
             'name' => 'required'
         ]);
-        Category::create([
+
+        Tag::create([
             'name' => $data['name']
         ]);
     }
@@ -43,33 +45,33 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
+    public function show(Tag $tag)
     {
-        return Inertia::render('Category/Show', [
-            'category' => $category
+        return Inertia::render('Admin/Tag/Show', [
+            'tag' => $tag
         ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $category)
+    public function edit(Tag $tag)
     {
-        return Inertia::render('Category/Edit', [
-            'category' => $category
+        return Inertia::render('Admin/Tag/Edit', [
+            'tag' => $tag
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Tag $tag)
     {
         $data = $request->validate([
             'name' => 'required'
         ]);
 
-        $category->update([
+        $tag->update([
             'name' => $data['name']
         ]);
     }
@@ -77,8 +79,8 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy(Tag $tag)
     {
-        $category->delete();
+        $tag->delete();
     }
 }

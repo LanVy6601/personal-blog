@@ -1,5 +1,5 @@
 <template>
-    <AppLayout title="Category">
+    <AdminLayout title="Category">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 Category list
@@ -42,7 +42,7 @@
                                     <button @click="destroyCategory(category.id)"
                                         class="px-2 bg-red-500 text-white rounded-lg mr-2">Delete</button>
                                     <button class="px-2 bg-orange-300 rounded-lg">
-                                        <a :href="route('category.edit', category.id)">Edit</a>
+                                        <a :href="route('admin.category.edit', category.id)">Edit</a>
                                     </button>
                                 </div>
                             </div>
@@ -52,11 +52,11 @@
                 </div>
             </div>
         </div>
-    </AppLayout>
+    </AdminLayout>
 </template>
 
 <script>
-import AppLayout from '@/Layouts/AppLayout.vue'
+import AdminLayout from '@/Layouts/AdminLayout.vue'
 import { router, useForm } from '@inertiajs/vue3'
 import dayjs from 'dayjs'
 import InputLabel from '@/Components/InputLabel.vue'
@@ -64,7 +64,7 @@ import TextInput from '@/Components/TextInput.vue'
 
 export default {
     components: {
-        AppLayout, InputLabel, TextInput
+        AdminLayout, InputLabel, TextInput
     },
     props: {
         categories: Array
@@ -80,14 +80,14 @@ export default {
     methods: {
         dayjs,
         createCategory() {
-            this.form.post(route('category.store'), {
+            this.form.post(route('admin.category.store'), {
                 onSuccess: () => {
                     this.showCreateForm = false
                 }
             })
         },
         destroyCategory(id) {
-            router.delete(route('category.destroy', id), {
+            router.delete(route('admin.category.destroy', id), {
                 onSuccess: () => {
                     window.location = router('category.index')
                 }

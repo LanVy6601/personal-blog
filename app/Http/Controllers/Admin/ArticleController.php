@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Tag;
@@ -16,7 +17,7 @@ class ArticleController extends Controller
     public function index()
     {
         $articles = Article::all();
-        return Inertia::render('Article/Index', ['articles' => $articles]);
+        return Inertia::render('Admin/Article/Index', ['articles' => $articles]);
     }
 
     /**
@@ -26,7 +27,7 @@ class ArticleController extends Controller
     {
         $categories = Category::all();
         $tags = Tag::all();
-        return Inertia::render('Article/Create', [
+        return Inertia::render('Admin/Article/Create', [
             'categories' => $categories,
             'tags' => $tags
         ]);
@@ -59,7 +60,7 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        return Inertia::render('Article/Show', ['article' => $article]);
+        return Inertia::render('Admin/Article/Show', ['article' => $article]);
     }
 
     /**
@@ -67,7 +68,7 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        return Inertia::render('Article/Edit', ['article' => $article]);
+        return Inertia::render('Admin/Article/Edit', ['article' => $article]);
     }
 
     /**

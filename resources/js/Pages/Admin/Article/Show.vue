@@ -1,5 +1,5 @@
 <template>
-    <AppLayout title="Article">
+    <AdminLayout title="Article">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 Article detail
@@ -17,15 +17,15 @@
                 </div>
             </div>
         </div>
-    </AppLayout>
+    </AdminLayout>
 </template>
 
 <script>
-import AppLayout from '@/Layouts/AppLayout.vue'
+import AdminLayout from '@/Layouts/AdminLayout.vue'
 import dayjs from 'dayjs'
 export default {
     components: {
-        AppLayout
+        AdminLayout
     },
     props: {
         article: Object

@@ -23,7 +23,7 @@ const submit = () => {
     form.transform(data => ({
         ...data,
         remember: form.remember ? 'on' : '',
-    })).post(route('login'), {
+    })).post(route('admin.login.post'), {
         onFinish: () => form.reset('password'),
     });
 };
@@ -35,7 +35,7 @@ const submit = () => {
     <AuthenticationCard>
         <template #logo>
             <AuthenticationCardLogo />
-            <h2>User login</h2>
+            <h2>Admin login</h2>
         </template>
 
         <div v-if="status" class="mb-4 font-medium text-sm text-green-600 dark:text-green-400">

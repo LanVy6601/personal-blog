@@ -1,6 +1,6 @@
                                     
 <template>
-    <AppLayout title="Tag">
+    <AdminLayout title="Tag">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 Tag list
@@ -43,7 +43,7 @@
                                     <button @click="destroyTag(tag.id)"
                                         class="px-2 bg-red-500 text-white rounded-lg mr-2">Delete</button>
                                     <button class="px-2 bg-orange-300 rounded-lg">
-                                        <a :href="route('tag.edit', tag.id)">Edit</a>
+                                        <a :href="route('admin.tag.edit', tag.id)">Edit</a>
                                     </button>
                                 </div>
                             </div>
@@ -53,11 +53,11 @@
                 </div>
             </div>
         </div>
-    </AppLayout>
+    </AdminLayout>
 </template>
 
 <script>
-import AppLayout from '@/Layouts/AppLayout.vue'
+import AdminLayout from '@/Layouts/AdminLayout.vue'
 import { router, useForm } from '@inertiajs/vue3'
 import dayjs from 'dayjs'
 import InputLabel from '@/Components/InputLabel.vue'
@@ -65,7 +65,7 @@ import TextInput from '@/Components/TextInput.vue'
 
 export default {
     components: {
-        AppLayout, InputLabel, TextInput
+        AdminLayout, InputLabel, TextInput
     },
     props: {
         tags: Array
@@ -81,14 +81,14 @@ export default {
     methods: {
         dayjs,
         createTag() {
-            this.form.post(route('tag.store'), {
+            this.form.post(route('admin.tag.store'), {
                 onSuccess: () => {
                     this.showCreateForm = false
                 }
             })
         },
         destroyTag(id) {
-            router.delete(route('tag.destroy', id), {
+            router.delete(route('admin.tag.destroy', id), {
                 onSuccess: () => {
                     window.location = router('tag.index')
                 }
