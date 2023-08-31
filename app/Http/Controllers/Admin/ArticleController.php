@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 
 class ArticleController extends Controller
@@ -16,7 +19,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::all();
+        $articles = Auth::user()->articles;
         return Inertia::render('Admin/Article/Index', ['articles' => $articles]);
     }
 
@@ -45,6 +48,7 @@ class ArticleController extends Controller
             'tags' => 'nullable'
         ]);
         $article = Article::create([
+            'admin_id' => Auth::id(),
             'title' => $data['title'],
             'content' => $data['content'],
             'category_id' => $data['category_id']
@@ -68,6 +72,10 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
+        // if (!Gate::allows('edit-article', $article)) {
+        //     abort(403);
+        // }
+        Gate::authorize('edit-article', $article);
         return Inertia::render('Admin/Article/Edit', ['article' => $article]);
     }
 
