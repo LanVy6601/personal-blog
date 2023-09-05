@@ -23,6 +23,12 @@ class ArticleController extends Controller
         return Inertia::render('Admin/Article/Index', ['articles' => $articles]);
     }
 
+    public function listHome()
+    {
+        $articles = Article::all();
+        return Inertia::render('Home', ['articles' => $articles]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */

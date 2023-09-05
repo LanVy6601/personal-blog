@@ -25,6 +25,11 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Gate::before(function (Admin $admin, string $ability) {
+            if ($admin->email === 'masterAdmin@gmail.com') {
+                return true;
+            }
+        });
         Gate::define('edit-article', function (Admin $admin, Article $article) {
             return $admin->id === $article->admin_id ? Response::allow() : Response::denyAsNotFound();
         });
