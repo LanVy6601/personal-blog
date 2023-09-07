@@ -1,21 +1,22 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Tag;
+use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class TagController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $tags = Tag::all();
-        return Inertia::render('Tag/Index', [
-            'tags' => $tags
+        $categories = Category::all();
+        return Inertia::render('Admin/Category/Index', [
+            'categories' => $categories
         ]);
     }
 
@@ -24,7 +25,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Tag/Create');
+        return Inertia::render('Admin/Category/Create');
     }
 
     /**
@@ -35,8 +36,7 @@ class TagController extends Controller
         $data = $request->validate([
             'name' => 'required'
         ]);
-
-        Tag::create([
+        Category::create([
             'name' => $data['name']
         ]);
     }
@@ -44,33 +44,33 @@ class TagController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Tag $tag)
+    public function show(Category $category)
     {
-        return Inertia::render('Tag/Show', [
-            'tag' => $tag
+        return Inertia::render('Admin/Category/Show', [
+            'category' => $category
         ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Tag $tag)
+    public function edit(Category $category)
     {
-        return Inertia::render('Tag/Edit', [
-            'tag' => $tag
+        return Inertia::render('Admin/Category/Edit', [
+            'category' => $category
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Tag $tag)
+    public function update(Request $request, Category $category)
     {
         $data = $request->validate([
             'name' => 'required'
         ]);
 
-        $tag->update([
+        $category->update([
             'name' => $data['name']
         ]);
     }
@@ -78,8 +78,8 @@ class TagController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Tag $tag)
+    public function destroy(Category $category)
     {
-        $tag->delete();
+        $category->delete();
     }
 }

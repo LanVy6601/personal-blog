@@ -23,7 +23,7 @@ const switchToTeam = (team) => {
 };
 
 const logout = () => {
-    router.post(route('logout'));
+    router.post(route('admin.logout'));
 };
 </script>
 
@@ -41,15 +41,24 @@ const logout = () => {
                         <div class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
-                                <Link :href="route('dashboard')">
+                                <Link :href="route('admin.article.index')">
                                     <ApplicationMark class="block h-9 w-auto" />
                                 </Link>
                             </div>
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Dashboard
+                                <NavLink :href="route('admin.article.index')" :active="route().current('admin.article.index')">
+                                    Article
+                                </NavLink>
+                                <NavLink :href="route('admin.category.index')" :active="route().current('admin.category.index')">
+                                    Category
+                                </NavLink>
+                                <NavLink :href="route('admin.tag.index')" :active="route().current('admin.tag.index')">
+                                    Tag
+                                </NavLink>
+                                <NavLink :href="route('home')" :active="route().current('home')">
+                                    Home
                                 </NavLink>
                             </div>
                         </div>
@@ -193,8 +202,8 @@ const logout = () => {
                 <!-- Responsive Navigation Menu -->
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                            Dashboard
+                        <ResponsiveNavLink :href="route('admin.article.index')" :active="route().current('admin.article.index')">
+                            Article
                         </ResponsiveNavLink>
                     </div>
 

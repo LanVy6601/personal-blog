@@ -1,11 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 
 class ArticleController extends Controller
@@ -15,8 +19,14 @@ class ArticleController extends Controller
      */
     public function index()
     {
+        $articles = Auth::user()->articles;
+        return Inertia::render('Admin/Article/Index', ['articles' => $articles]);
+    }
+
+    public function listHome()
+    {
         $articles = Article::all();
-        return Inertia::render('Article/Index', ['articles' => $articles]);
+        return Inertia::render('Home', ['articles' => $articles]);
     }
 
     /**
@@ -26,7 +36,7 @@ class ArticleController extends Controller
     {
         $categories = Category::all();
         $tags = Tag::all();
-        return Inertia::render('Article/Create', [
+        return Inertia::render('Admin/Article/Create', [
             'categories' => $categories,
             'tags' => $tags
         ]);
@@ -44,6 +54,7 @@ class ArticleController extends Controller
             'tags' => 'nullable'
         ]);
         $article = Article::create([
+            'admin_id' => Auth::id(),
             'title' => $data['title'],
             'content' => $data['content'],
             'category_id' => $data['category_id']
@@ -59,7 +70,7 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        return Inertia::render('Article/Show', ['article' => $article]);
+        return Inertia::render('Admin/Article/Show', ['article' => $article]);
     }
 
     /**
@@ -67,7 +78,11 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        return Inertia::render('Article/Edit', ['article' => $article]);
+        // if (!Gate::allows('edit-article', $article)) {
+        //     abort(403);
+        // }
+        Gate::authorize('edit-article', $article);
+        return Inertia::render('Admin/Article/Edit', ['article' => $article]);
     }
 
     /**

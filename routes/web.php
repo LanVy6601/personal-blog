@@ -1,8 +1,6 @@
 <?php
 
-use App\Http\Controllers\ArticleController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\TagController;
+use App\Http\Controllers\Admin\ArticleController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -28,7 +26,7 @@ Route::get('/', function () {
 });
 
 Route::middleware([
-    'auth:sanctum',
+    'auth',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
@@ -37,6 +35,4 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::resource('article', ArticleController::class);
-Route::resource('category', CategoryController::class);
-Route::resource('tag', TagController::class);
+Route::get('home', [ArticleController::class, 'listHome'])->name('home');

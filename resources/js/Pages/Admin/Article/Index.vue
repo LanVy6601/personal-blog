@@ -1,8 +1,8 @@
 <template>
-    <AppLayout title="Article">
+    <AdminLayout title="Article">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                Articles list
+                My articles
             </h2>
         </template>
 
@@ -10,7 +10,7 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="flex justify-end">
                     <button class="rounded-full bg-indigo-500 hover:bg-indigo-400 px-3 py-1 mb-4 text-white"><a
-                            :href="route('article.create')">+ Create new article</a></button>
+                            :href="route('admin.article.create')">+ Create new article</a></button>
                 </div>
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                     <div
@@ -19,7 +19,7 @@
                             <div class="flex justify-between items-center">
                                 <div>
                                     <div class="article-title">
-                                        <a :href="route('article.show', article.id)">{{ article.title }}</a>
+                                        <a :href="route('admin.article.show', article.id)">{{ article.title }}</a>
                                     </div>
                                     <span class="article-date">{{ dayjs(article.updated_at).format('YYYY-MM-DD HH:mm')
                                     }}</span>
@@ -28,7 +28,7 @@
                                     <button @click="destroyArticle(article.id)"
                                         class="px-2 bg-red-500 text-white rounded-lg mr-2">Delete</button>
                                     <button class="px-2 bg-orange-300 rounded-lg"><a
-                                            :href="route('article.edit', article.id)">Edit</a></button>
+                                            :href="route('admin.article.edit', article.id)">Edit</a></button>
                                 </div>
                             </div>
                             <hr>
@@ -37,17 +37,17 @@
                 </div>
             </div>
         </div>
-    </AppLayout>
+    </AdminLayout>
 </template>
 
 <script>
-import AppLayout from '@/Layouts/AppLayout.vue'
+import AdminLayout from '@/Layouts/AdminLayout.vue'
 import { router } from '@inertiajs/vue3'
 import dayjs from 'dayjs'
 
 export default {
     components: {
-        AppLayout
+        AdminLayout
     },
     props: {
         articles: Array
@@ -60,7 +60,7 @@ export default {
     methods: {
         dayjs,
         destroyArticle(id) {
-            router.delete(route('article.destroy', id), {
+            router.delete(route('admin.article.destroy', id), {
                 onSuccess: () => {
                     window.location = router('article.index')
                 }

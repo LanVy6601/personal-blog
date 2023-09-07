@@ -1,5 +1,5 @@
 <template>
-    <AppLayout>
+    <AdminLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 Create new article
@@ -44,12 +44,12 @@
                 </div>
             </div>
         </div>
-    </AppLayout>
+    </AdminLayout>
 </template>
 
 <script>
 import TinyMceEditor from '@/Components/Admin/TinyMceEditor.vue';
-import AppLayout from '@/Layouts/AppLayout.vue';
+import AdminLayout from '@/Layouts/AdminLayout.vue';
 import TextInput from '@/Components/TextInput.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import InputError from '@/Components/InputError.vue';
@@ -57,7 +57,7 @@ import { useForm } from '@inertiajs/vue3';
 
 export default {
     components: {
-        TinyMceEditor, AppLayout, TextInput, InputLabel, InputError
+        TinyMceEditor, AdminLayout, TextInput, InputLabel, InputError
     },
     props: {
         categories: Array,
@@ -75,9 +75,9 @@ export default {
     },
     methods: {
         createArticle() {
-            this.form.post(route('article.store'), {
+            this.form.post(route('admin.article.store'), {
                 onSuccess: () => {
-                    window.location = route('article.index')
+                    window.location = route('admin.article.index')
                 },
             }
             )

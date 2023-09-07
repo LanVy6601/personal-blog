@@ -1,5 +1,5 @@
 <template>
-    <AppLayout>
+    <AdminLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 Edit new article
@@ -45,12 +45,12 @@
                 </div>
             </div>
         </div>
-    </AppLayout>
+    </AdminLayout>
 </template>
 
 <script>
 import TinyMceEditor from '@/Components/Admin/TinyMceEditor.vue';
-import AppLayout from '@/Layouts/AppLayout.vue';
+import AdminLayout from '@/Layouts/AdminLayout.vue';
 import TextInput from '@/Components/TextInput.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import InputError from '@/Components/InputError.vue';
@@ -58,7 +58,7 @@ import { useForm } from '@inertiajs/vue3';
 
 export default {
     components: {
-        TinyMceEditor, AppLayout, TextInput, InputLabel, InputError
+        TinyMceEditor, AdminLayout, TextInput, InputLabel, InputError
     },
     props: {
         article: Object
@@ -75,9 +75,9 @@ export default {
     },
     methods: {
         updateArticle(id) {
-            this.form.put(route('article.update', id), {
+            this.form.put(route('admin.article.update', id), {
                 onSuccess: () => {
-                    window.location = route('article.show', id)
+                    window.location = route('admin.article.show', id)
                 },
             })
         }
